@@ -14,12 +14,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # Cache dependencies folder (create it if missing)
       - name: Cache dependencies
         id: cache-deps
         uses: actions/cache@v4
         with:
           path: ~/.cache/my-deps
           key: cache-64e8854
+
+      - name: Ensure cache folder exists
+        run: mkdir -p ~/.cache/my-deps
 
       - name: prime-cache-64e8854
         run: echo "Cache result: ${{ steps.cache-deps.outputs.cache-hit }}"
